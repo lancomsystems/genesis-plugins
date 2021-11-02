@@ -13,7 +13,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.util.VersionNumber
+import org.gradle.util.internal.VersionNumber
 import java.io.File
 
 object Util {
@@ -25,8 +25,8 @@ object Util {
         isM2compatible = true
         settings = IvySettings()
         root = url
-    }.let {
-        it.listRevisions(ModuleEntry(OrganisationEntry(it, group), name)).map { it.revision }
+    }.let { resolver ->
+        resolver.listRevisions(ModuleEntry(OrganisationEntry(resolver, group), name)).map { it.revision }
     }
 
     fun createGitRepo(path: File) = Git(
@@ -43,7 +43,7 @@ object Util {
 
         val fileContent = getFileContentForBranch(git, branch, "build.gradle", "build.gradle.kts")
 
-        val branchVersion = fileContent?.let {
+        val branchVersion = fileContent.let {
             versionDiffRegex.find(it)
         }?.groupValues?.get(2)?.let {
             VersionNumber.parse(it)
@@ -55,14 +55,14 @@ object Util {
         }
     }
 
-    fun checkRepositoryVersion(project: Project) {
+    fun checkPublishedVersion(project: Project) {
         val projectVersion = VersionNumber.parse(project.version.toString())
         val repositoryUrls = project.extensions.getByType(PublishingExtension::class.java).repositories.mapNotNull {
             (it as? MavenArtifactRepository)?.url?.toString()
         }
 
-        val repositoryVersion = repositoryUrls.flatMap {
-            listRevisions(it, project.group.toString(), project.name).map { VersionNumber.parse(it) }
+        val repositoryVersion = repositoryUrls.flatMap { url ->
+            listRevisions(url, project.group.toString(), project.name).map { VersionNumber.parse(it) }
         }.maxOrNull()
 
         if (repositoryVersion != null && repositoryVersion >= projectVersion) {
@@ -71,14 +71,14 @@ object Util {
 
     }
 
-    private fun getFileContentForBranch(git: Git, branch: String, vararg matchingFileNames: String): String? {
+    private fun getFileContentForBranch(git: Git, branch: String, vararg matchingFileNames: String): String {
         val head = git.repository.findRef(branch)
         val walk = RevWalk(git.repository)
-        val commit = walk.parseCommit(head.getObjectId())
+        val commit = walk.parseCommit(head.objectId)
         val treeWalker = TreeWalk(git.repository)
         treeWalker.addTree(commit.tree)
         treeWalker.isRecursive = true
-        treeWalker.filter = PathFilterGroup.createFromStrings(*matchingFileNames);
+        treeWalker.filter = PathFilterGroup.createFromStrings(*matchingFileNames)
         treeWalker.next() || throw GradleException("Could not find build.gradle file.")
         return git.repository.open(treeWalker.getObjectId(0)).bytes.decodeToString()
     }

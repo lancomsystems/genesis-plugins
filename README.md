@@ -51,7 +51,7 @@ Creates a git tag using the project version and tag prefix.
 #### `checkBranchVersion`
 Checks that the project version is newer that the one configured in the latest commit of the configured git branch.
 
-#### `checkRepositoryVersion`
+#### `checkPublishedVersion`
 Checks that the project version is newer that the one latest one published in the publishing maven repository.
 
 ### Example
@@ -62,6 +62,5 @@ Execute `./gradlew -p example <tasks>` to run tasks of the [example project](./e
 
 ## Maintainers
 - [Artur Taube](https://github.com/Adduh)
-- [Frederic Kneier](https://github.com/frederic-kneier)
 - [Jonas von Andrian](https://github.com/johnny)
 - [Maya Naydenova](https://github.com/mnaydeno)
