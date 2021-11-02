@@ -6,7 +6,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.util.VersionNumber
+import org.gradle.util.internal.VersionNumber
 
 open class GenesisVersionExtension(
     private val project: Project
@@ -59,7 +59,7 @@ open class GenesisVersionExtension(
         }
 
         val versionTypeProperty = project.findProperty("versionType")?.let {
-            VersionType.valueOf(it.toString().toUpperCase())
+            VersionType.valueOf(it.toString().uppercase())
         }
 
         val versionTypeValue = versionTypeProperty ?: type.orNull ?: VersionType.DEFAULT
@@ -150,7 +150,7 @@ open class GenesisVersionExtension(
     }
 
     fun withType(type: String) {
-        this.type.set(VersionType.valueOf(type.toUpperCase()))
+        this.type.set(VersionType.valueOf(type.uppercase()))
     }
 
     fun withType(type: VersionType) {
