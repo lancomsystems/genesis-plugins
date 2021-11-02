@@ -55,7 +55,7 @@ object Util {
         }
     }
 
-    fun checkRepositoryVersion(project: Project) {
+    fun checkPublishedVersion(project: Project) {
         val projectVersion = VersionNumber.parse(project.version.toString())
         val repositoryUrls = project.extensions.getByType(PublishingExtension::class.java).repositories.mapNotNull {
             (it as? MavenArtifactRepository)?.url?.toString()

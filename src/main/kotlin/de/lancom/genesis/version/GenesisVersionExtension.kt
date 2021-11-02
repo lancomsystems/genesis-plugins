@@ -7,7 +7,6 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.util.VersionNumber
-import java.util.concurrent.atomic.AtomicBoolean
 
 open class GenesisVersionExtension(
     private val project: Project
@@ -41,7 +40,7 @@ open class GenesisVersionExtension(
         }
 
         project.tasks.create("checkPublishedVersion").doFirst {
-            Util.checkRepositoryVersion(project)
+            Util.checkPublishedVersion(project)
         }
 
         project.afterEvaluate {
