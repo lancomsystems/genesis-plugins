@@ -11,7 +11,7 @@ repositories {
 }
 
 genesisPublish {
-    withReleaseUrl("https://255.255.255.255/release")
-    withSnapshotUrl("https://255.255.255.255/snapshot")
+    withReleaseUrl("http://localhost:8888/release")
     withComponent("java")
+    withInsecure(true)
 }

@@ -1,4 +1,6 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
+import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.lancom.genesis"
 version = "0.1.0"
@@ -8,6 +10,7 @@ plugins {
     id("maven-publish")
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.12.0"
+    id("com.palantir.idea-test-fix") version "0.1.0"
 }
 
 repositories {
@@ -20,6 +23,7 @@ dependencies {
 
     testImplementation(gradleTestKit())
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation("org.mock-server:mockserver-junit-jupiter:5.11.2")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
@@ -44,13 +48,14 @@ pluginBundle {
 tasks.withType(Test::class.java) {
     useJUnitPlatform()
     testLogging {
-        events = setOf(
-            TestLogEvent.PASSED,
-            TestLogEvent.FAILED
-        )
+        events = setOf(PASSED, FAILED)
     }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+tasks.withType(KotlinCompile::class.java).all {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
 }

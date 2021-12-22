@@ -33,7 +33,7 @@ open class GenesisPublishExtension(
                 val user = userProperty ?: user.orNull
                 val password = passwordProperty ?: password.orNull
                 val component = componentProperty ?: component.orNull
-                val insecure = insecureProperty ?: insecure.orNull ?: true
+                val insecure = insecureProperty ?: insecure.orNull ?: false
 
                 val url = urlProperty ?: if (snapshot) snapshotUrl else releaseUrl
 
