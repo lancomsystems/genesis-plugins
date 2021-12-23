@@ -21,6 +21,6 @@ object VersionExtractor {
     }
 
     private fun getRegex(versionVariable: String): Regex {
-        return "^$versionVariable\\s*[=:]?\\s*([\"']?)(.+)\\1$".toRegex(RegexOption.MULTILINE)
+        return "^\\s*$versionVariable\\s*[=:]?\\s*([\"']?)(.+)\\1$".toRegex(RegexOption.MULTILINE)
     }
 }

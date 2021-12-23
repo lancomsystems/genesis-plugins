@@ -26,6 +26,17 @@ class VersionExtractorTest {
     }
 
     @Test
+    fun `subprojects kotlin`() {
+        val version = VersionExtractor.extractVersion("""
+            subprojects {
+                group = "org.example"
+                version = "1.2.3"
+            }            
+        """.trimIndent())
+        assertThat(version).isEqualTo(VersionNumber.parse("1.2.3"))
+    }
+
+    @Test
     fun `inline build gradle groovy`() {
         val version = VersionExtractor.extractVersion("""
             group "org.example"
