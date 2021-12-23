@@ -10,6 +10,7 @@ class CheckBranchVersionTest {
 
     @Test
     fun `check if a newer project version against a branch succeeds`() = execute(
+        baseBranchVersion = "1.2.3-bar",
         version = "1.2.4-bar",
         check = {
             assertThat(success).isTrue
@@ -18,6 +19,7 @@ class CheckBranchVersionTest {
 
     @Test
     fun `check if same project version against a branch fails`() = execute(
+        baseBranchVersion = "1.2.3-bar",
         version = "1.2.3-bar",
         check = {
             assertThat(success).isFalse
@@ -26,25 +28,128 @@ class CheckBranchVersionTest {
 
     @Test
     fun `check if older project version against a branch fails`() = execute(
+        baseBranchVersion = "1.2.3-bar",
         version = "1.2.2-bar",
         check = {
             assertThat(success).isFalse
         }
     )
 
-    private fun execute(
-        version: String,
-        branch: String = "feature",
-        check: TestResult.() -> Unit = {},
-    ) {
+    @Test
+    fun `check branch version with change build gradle - gradle properties`() {
         testProject {
+            debug = true
+            branch("base")
             file("settings.gradle") {
                 fromTemplate("settings.gradle.ftl")
             }
             file("build.gradle") {
                 fromTemplate(
                     "build.gradle.ftl", mapOf(
+                        "version" to "1.2.3-bar",
+                        "config" to listOf(
+                            "withBranch(\"${"base"}\")"
+                        )
+                    )
+                )
+            }
+
+            commit()
+            branch("feature")
+
+            file("build.gradle") {
+                fromTemplate(
+                    "build.gradle.withProperties.ftl", mapOf(
+                        "version" to "serviceVersion",
+                        "config" to listOf(
+                            "withBranch(\"${"base"}\")"
+                        )
+                    )
+                )
+            }
+
+            file("gradle.properties") {
+                fromTemplate(
+                    "gradle.properties.ftl", mapOf(
+                        "version" to "1.2.4-bar"
+                    )
+                )
+            }
+
+            commit()
+
+            execute("-q", "-PversionType=default", ":checkBranchVersion", "--stacktrace") {
+                assertThat(success).isTrue
+            }
+        }
+    }
+
+    @Test
+    fun `check branch version with gradle properties`() {
+        testProject {
+            debug = true
+            branch("base")
+            file("settings.gradle") {
+                fromTemplate("settings.gradle.ftl")
+            }
+            file("build.gradle") {
+                fromTemplate(
+                    "build.gradle.withProperties.ftl", mapOf(
+                        "version" to "serviceVersion",
+                        "config" to listOf(
+                            "withBranch(\"${"base"}\")"
+                        )
+                    )
+                )
+            }
+
+            file("gradle.properties") {
+                fromTemplate(
+                    "gradle.properties.ftl", mapOf(
                         "version" to "1.2.3-bar"
+                    )
+                )
+            }
+
+            commit()
+            branch("feature")
+
+            file("gradle.properties") {
+                fromTemplate(
+                    "gradle.properties.ftl", mapOf(
+                        "version" to "1.2.4-bar"
+                    )
+                )
+            }
+
+            commit()
+
+            execute("-q", "-PversionType=default", ":checkBranchVersion", "--stacktrace") {
+                assertThat(success).isTrue
+            }
+        }
+    }
+
+    private fun execute(
+        baseBranchVersion: String,
+        baseBranch: String = "base",
+        version: String,
+        branch: String = "feature",
+        check: TestResult.() -> Unit = {},
+    ) {
+        testProject {
+            debug = true
+            branch(baseBranch)
+            file("settings.gradle") {
+                fromTemplate("settings.gradle.ftl")
+            }
+            file("build.gradle") {
+                fromTemplate(
+                    "build.gradle.ftl", mapOf(
+                        "version" to baseBranchVersion,
+                        "config" to listOf(
+                            "withBranch(\"$baseBranch\")"
+                        )
                     )
                 )
             }
@@ -55,14 +160,17 @@ class CheckBranchVersionTest {
             file("build.gradle") {
                 fromTemplate(
                     "build.gradle.ftl", mapOf(
-                        "version" to version
+                        "version" to version,
+                        "config" to listOf(
+                            "withBranch(\"$baseBranch\")"
+                        )
                     )
                 )
             }
 
             commit()
 
-            execute("-q", "-PversionType=default", ":checkBranchVersion") {
+            execute("-q", "-PversionType=default", ":checkBranchVersion", "--stacktrace") {
                 check()
             }
         }

@@ -4,7 +4,9 @@ import org.apache.ivy.core.search.ModuleEntry
 import org.apache.ivy.core.search.OrganisationEntry
 import org.apache.ivy.core.settings.IvySettings
 import org.apache.ivy.plugins.resolver.IBiblioResolver
+import org.eclipse.jgit.api.CreateBranchCommand
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.Ref
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.treewalk.TreeWalk
@@ -37,17 +39,12 @@ object Util {
             .build()
     )
 
-    fun checkDiffVersion(branch: String, git: Git, project: Project) {
+    fun checkBranchVersion(branch: String, git: Git, project: Project) {
         val currentVersion = VersionNumber.parse(project.version.toString())
-        val versionDiffRegex = "^version\\s*[=:]?\\s*([\"'])(.+)\\1$".toRegex(RegexOption.MULTILINE)
 
-        val fileContent = getFileContentForBranch(git, branch, "build.gradle", "build.gradle.kts")
+        val fileContent = getFileContentForBranch(git, branch, "build.gradle", "build.gradle.kts", "gradle.properties")
 
-        val branchVersion = fileContent.let {
-            versionDiffRegex.find(it)
-        }?.groupValues?.get(2)?.let {
-            VersionNumber.parse(it)
-        } ?: throw GradleException("Unable to determine branch version from diff. Missing or too many changes?")
+        val branchVersion = VersionExtractor.extractVersion(fileContent)
 
         project.logger.lifecycle("Checking project version $currentVersion against branch version $branchVersion")
         if (currentVersion <= branchVersion) {
@@ -72,15 +69,34 @@ object Util {
     }
 
     private fun getFileContentForBranch(git: Git, branch: String, vararg matchingFileNames: String): String {
-        val head = git.repository.findRef(branch)
+        val branchHead = getBranchHead(git, branch)
         val walk = RevWalk(git.repository)
-        val commit = walk.parseCommit(head.objectId)
+        val commit = walk.parseCommit(branchHead.objectId)
         val treeWalker = TreeWalk(git.repository)
         treeWalker.addTree(commit.tree)
         treeWalker.isRecursive = true
         treeWalker.filter = PathFilterGroup.createFromStrings(*matchingFileNames)
-        treeWalker.next() || throw GradleException("Could not find build.gradle file.")
-        return git.repository.open(treeWalker.getObjectId(0)).bytes.decodeToString()
+
+        treeWalker.next() || throw GradleException("Could not find any file matching $matchingFileNames.")
+
+        val fileContents = StringBuilder()
+        do {
+            fileContents.append(git.repository.open(treeWalker.getObjectId(0)).bytes.decodeToString())
+        } while (treeWalker.next())
+        return fileContents.toString()
+    }
+
+    private fun getBranchHead(git: Git, branch: String): Ref {
+        val existingBranchHead = git.repository.findRef(branch)
+        if (existingBranchHead != null) {
+            return existingBranchHead
+        }
+        git.branchCreate().setName(branch)
+            .setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM)
+            .setStartPoint("origin/$branch")
+            .setForce(true)
+            .call()
+        return git.repository.findRef(branch)!!
     }
 
 }

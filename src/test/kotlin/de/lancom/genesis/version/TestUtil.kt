@@ -101,6 +101,8 @@ inline fun testProject(block: TestSetup.() -> Unit) {
                         file.writer().use {
                             Template(path, resource.readText(), configuration).process(variables, it)
                         }
+                        println(file.name)
+                        println(file.readText())
                     }
 
                     override fun fromText(text: String) {
@@ -131,6 +133,7 @@ inline fun testProject(block: TestSetup.() -> Unit) {
                     }
                 }
                 try {
+                    println(buildResult.build.output)
                     result(buildResult)
                 } catch (ex: AssertionError) {
                     println(buildResult.build.output)
@@ -146,10 +149,12 @@ inline fun testProject(block: TestSetup.() -> Unit) {
 }
 
 fun TestSetup.branch(name: String) {
+    println("changing branch to $name")
     git.checkout().setCreateBranch(true).setName(name).call()
 }
 
 fun TestSetup.commit() {
+    println("committing all")
     git.add().addFilepattern(".").call()
     git.commit().setMessage("Commit").setAll(true).call()
 }

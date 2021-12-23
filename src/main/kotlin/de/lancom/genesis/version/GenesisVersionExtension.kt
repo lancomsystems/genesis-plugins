@@ -20,11 +20,11 @@ open class GenesisVersionExtension(
     val checkBranch = project.objects.property(String::class.java)
 
     init {
-        project.tasks.create("printVersion").doFirst {
+        project.tasks.register("printVersion") {
             println(project.version)
         }
 
-        project.tasks.create("tagVersion").doFirst {
+        project.tasks.register("tagVersion") {
             val tagPrefixProperty = project.findProperty("versionTagPrefix")?.toString()
             val tagPrefixValue = tagPrefixProperty ?: tagPrefix.orNull ?: "VERSION-"
             createGitRepo(project.rootDir).tag().run {
@@ -33,13 +33,13 @@ open class GenesisVersionExtension(
             }
         }
 
-        project.tasks.create("checkBranchVersion").doFirst {
+        project.tasks.register("checkBranchVersion") {
             val checkBranchProperty = project.findProperty("versionCheckBranch")?.toString()
-            val checkBranchValue = checkBranchProperty ?: checkBranch.orNull ?: "master"
-            Util.checkDiffVersion(checkBranchValue, createGitRepo(project.rootDir), project)
+            val checkBranchValue = checkBranchProperty ?: checkBranch.orNull ?: "main"
+            Util.checkBranchVersion(checkBranchValue, createGitRepo(project.rootDir), project)
         }
 
-        project.tasks.create("checkPublishedVersion").doFirst {
+        project.tasks.register("checkPublishedVersion") {
             Util.checkPublishedVersion(project)
         }
 
