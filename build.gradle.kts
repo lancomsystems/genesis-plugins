@@ -7,10 +7,10 @@ version = "1.0.0"
 val kotlinVersion = "1.4.21"
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("maven-publish")
     id("java-gradle-plugin")
-    id("com.gradle.plugin-publish") version "0.16.0"
+    id("com.gradle.plugin-publish") version "0.19.0"
 }
 
 repositories {
@@ -23,9 +23,9 @@ dependencies {
     implementation("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5")
 
     testImplementation(gradleTestKit())
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
 }
 
 gradlePlugin {
