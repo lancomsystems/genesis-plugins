@@ -15,7 +15,7 @@ plugins {
 ```kotlin 
 genesisVersion {
     withHotfixDigits(0)
-    withVersionType("default"|"snapshot"|"release"|"hotfix"|"build")
+    withType("default"|"snapshot"|"release"|"hotfix"|"build")
     withTagPrefix("VERSION-")
     withBranch("master")
     apply()
