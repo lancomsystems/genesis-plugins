@@ -21,26 +21,34 @@ open class GenesisVersionExtension(
 
     init {
         project.tasks.register("printVersion") {
-            println(project.version)
+            it.doFirst {
+                println(project.version)
+            }
         }
 
         project.tasks.register("tagVersion") {
-            val tagPrefixProperty = project.findProperty("versionTagPrefix")?.toString()
-            val tagPrefixValue = tagPrefixProperty ?: tagPrefix.orNull ?: "VERSION-"
-            createGitRepo(project.rootDir).tag().run {
-                name = "$tagPrefixValue${project.version}"
-                call()
+            it.doFirst {
+                val tagPrefixProperty = project.findProperty("versionTagPrefix")?.toString()
+                val tagPrefixValue = tagPrefixProperty ?: tagPrefix.orNull ?: "VERSION-"
+                createGitRepo(project.rootDir).tag().run {
+                    name = "$tagPrefixValue${project.version}"
+                    call()
+                }
             }
         }
 
         project.tasks.register("checkBranchVersion") {
-            val checkBranchProperty = project.findProperty("versionCheckBranch")?.toString()
-            val checkBranchValue = checkBranchProperty ?: checkBranch.orNull ?: "main"
-            Util.checkBranchVersion(checkBranchValue, createGitRepo(project.rootDir), project)
+            it.doFirst {
+                val checkBranchProperty = project.findProperty("versionCheckBranch")?.toString()
+                val checkBranchValue = checkBranchProperty ?: checkBranch.orNull ?: "main"
+                Util.checkBranchVersion(checkBranchValue, createGitRepo(project.rootDir), project)
+            }
         }
 
         project.tasks.register("checkPublishedVersion") {
-            Util.checkPublishedVersion(project)
+            it.doFirst {
+                Util.checkPublishedVersion(project)
+            }
         }
 
         project.afterEvaluate {
