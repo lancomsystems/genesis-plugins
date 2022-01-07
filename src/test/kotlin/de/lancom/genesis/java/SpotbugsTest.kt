@@ -60,7 +60,7 @@ class SpotbugsTest {
             file("src/main/java/test/Main.java") {
                 fromClasspath("spotbugs/source-fail.java.template")
             }
-            file("config/spotbugs/spotbugs.xml") {
+            file("config/spotbugs/include.xml") {
                 fromClasspath("spotbugs/spotbugs.xml.template")
             }
             execute(":spotbugsMain") {

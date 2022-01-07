@@ -42,7 +42,7 @@ KtLinkt can be configured using the `config/pmd/pmd.xml` rule file like the [exa
 For additional information see the [Pmd documentation](https://pmd.github.io/pmd-6.26.0/pmd_userdocs_making_rulesets.html).
 
 #### Spotbugs
-Spotbugs can be configured using the `config/spotbugs/spotbugs.xml` include file like the [example file](example/config/spotbugs/spotbugs.xml).
+Spotbugs can be configured using the `config/spotbugs/include.xml` include file like the [example file](example/config/spotbugs/include.xml)and `config/spotbugs/exclude.xml`.
 For additional information see the [Spotbugs documentation](https://spotbugs.readthedocs.io/en/stable/filter.html).
 
 ### Example
