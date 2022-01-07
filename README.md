@@ -18,7 +18,6 @@ genesisVersion {
     withType("default"|"snapshot"|"release"|"hotfix"|"build")
     withTagPrefix("VERSION-")
     withBranch("master")
-    apply()
 }
 ```
 

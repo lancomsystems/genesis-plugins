@@ -93,7 +93,7 @@ object Util {
         if (existingBranchHead != null) {
             return existingBranchHead
         }
-        
+
         git.remoteList().call().first {
             try {
                 git.branchCreate().setName(branch)

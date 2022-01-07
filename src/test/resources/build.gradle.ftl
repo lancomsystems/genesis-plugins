@@ -19,5 +19,4 @@ genesisVersion {
     <#list (config ! []) as line>
     ${line ! ""}
     </#list>
-    apply()
 }
