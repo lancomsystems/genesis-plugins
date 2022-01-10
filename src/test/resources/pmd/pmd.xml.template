@@ -7,4 +7,6 @@
         My custom rules
     </description>
 
+    <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly" />
+
 </ruleset>
