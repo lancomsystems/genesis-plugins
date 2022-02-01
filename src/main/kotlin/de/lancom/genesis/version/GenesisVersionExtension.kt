@@ -20,17 +20,10 @@ open class GenesisVersionExtension(
     val checkBranch = project.objects.property(String::class.java)
 
     init {
-        val checkVersion = project.tasks.register("checkVersion") {
-            it.doFirst {
-                checkVersion()
-            }
-        }
-
         project.tasks.register("printVersion") {
             it.doFirst {
                 println(project.version)
             }
-            it.dependsOn(checkVersion)
         }
 
         project.tasks.register("tagVersion") {
@@ -42,7 +35,6 @@ open class GenesisVersionExtension(
                     call()
                 }
             }
-            it.dependsOn(checkVersion)
         }
 
         project.tasks.register("checkBranchVersion") {
@@ -51,20 +43,20 @@ open class GenesisVersionExtension(
                 val checkBranchValue = checkBranchProperty ?: checkBranch.orNull ?: "main"
                 Util.checkBranchVersion(checkBranchValue, createGitRepo(project.rootDir), project)
             }
-            it.dependsOn(checkVersion)
         }
 
         project.tasks.register("checkPublishedVersion") {
             it.doFirst {
                 Util.checkPublishedVersion(project)
             }
-            it.dependsOn(checkVersion)
         }
 
-        project.tasks.findByName("classes")?.dependsOn(checkVersion)
+        project.afterEvaluate {
+            adjustVersion()
+        }
     }
 
-    private fun checkVersion() {
+    fun adjustVersion() {
         versionChecked = true
         val versionOverrideProperty = project.findProperty("versionOverride")?.toString()
         if (versionOverrideProperty != null) {
