@@ -7,10 +7,10 @@ version = "0.0.7"
 val kotlinVersion = "1.4.21"
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("maven-publish")
     id("java-gradle-plugin")
-    id("com.gradle.plugin-publish") version "0.16.0"
+    id("com.gradle.plugin-publish") version "0.20.0"
 }
 
 repositories {
@@ -21,16 +21,16 @@ repositories {
 dependencies {
     implementation(gradleApi())
 
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r")
     implementation("org.apache.ivy:ivy:2.5.0")
 
     testImplementation(gradleTestKit())
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.1")
-    testImplementation("org.assertj:assertj-core:3.21.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+    testImplementation("org.assertj:assertj-core:3.22.0")
     testImplementation("org.freemarker:freemarker:2.3.31")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
 }
 
 gradlePlugin {
