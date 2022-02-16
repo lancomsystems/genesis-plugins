@@ -1,5 +1,6 @@
 plugins {
     id("maven-publish")
+    id("java")
     id("de.lancom.genesis.version")
 }
 
@@ -12,6 +13,15 @@ publishing {
             name = "internalTest"
             url = uri("$projectDir/repository")
         }
+    }
+    publications {
+      main(MavenPublication) {
+        from components.java
+      }
+      client(MavenPublication) {
+        from components.java
+        artifactId = "test-project-client"
+      }
     }
 }
 

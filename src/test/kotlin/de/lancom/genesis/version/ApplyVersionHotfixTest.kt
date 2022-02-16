@@ -97,6 +97,64 @@ class ApplyVersionHotfixTest {
         }
     )
 
+    @Test
+    fun `no base version released, yet`() = execute(
+        version = "1.9.200",
+        type = "hotfix",
+        check = {
+            assertThat(success).isFalse
+            assertThat(build.output).contains("Hotfix not necessary")
+        }
+    )
+
+    @Test
+    fun `different hotfix artifact`() {
+        testProject {
+            file("settings.gradle") {
+                fromTemplate("settings.gradle.ftl")
+            }
+            file("build.gradle") {
+                val variables = mapOf<String, Any?>(
+                    "version" to "1.1.200",
+                    "config" to listOf<String?>(
+                        "withType('hotfix')",
+                        "withHotfixDigits(2)",
+                    )
+                )
+                fromTemplate("build.gradle.ftl", variables)
+            }
+            file("repository/org/example/test-project/maven-metadata.xml") {
+                fromTemplate(
+                    "maven-metadata.xml.ftl", mapOf(
+                        "versions" to listOf(
+                            "1.1.100",
+                            "1.1.200",
+                            "1.2.100",
+                        )
+                    )
+                )
+            }
+
+            file("repository/org/example/test-project-client/maven-metadata.xml") {
+                fromTemplate(
+                    "maven-metadata.xml.ftl", mapOf(
+                        "versions" to listOf(
+                            "1.1.100",
+                            "1.1.200",
+                            "1.1.201",
+                            "1.2.100",
+                        )
+                    )
+                )
+            }
+
+            execute("-q", ":printVersion") {
+                assertThat(success).isTrue
+                assertThat(build.output).contains("1.1.202")
+            }
+        }
+    }
+
     private fun execute(
         type: String? = null,
         version: String? = null,

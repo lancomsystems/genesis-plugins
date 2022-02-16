@@ -4,8 +4,6 @@ import de.lancom.genesis.version.Util.createGitRepo
 import org.eclipse.jgit.lib.Constants
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.api.artifacts.repositories.MavenArtifactRepository
-import org.gradle.api.publish.PublishingExtension
 import org.gradle.util.internal.VersionNumber
 
 open class GenesisVersionExtension(
@@ -109,41 +107,12 @@ open class GenesisVersionExtension(
                 qualifier = "$userName-$sha"
             }
             VersionType.HOTFIX -> {
-                project.extensions.findByType(PublishingExtension::class.java)?.also {
-                    it.repositories.forEach { repository ->
-                        if (repository is MavenArtifactRepository) {
-
-                            Util.listRevisions(
-                                repository.url.toString(),
-                                project.group.toString(),
-                                project.name.toString()
-                            ).forEach {
-                                try {
-                                    VersionNumber.parse(it).also {
-                                        var match = true
-                                        match = match && it.major == major
-                                        match = match && it.minor == minor
-                                        match = match && it.micro / hotfixSize == patch / hotfixSize
-                                        match = match && it.qualifier == null
-
-                                        if (match) {
-                                            hotfix = maxOf(it.micro % hotfixSize + 1, hotfix)
-                                        }
-                                    }
-                                } catch (_: Exception) {
-                                    project.logger.warn("Artifact version $it cannot be parsed.")
-                                }
-                            }
-                        }
-                    }
-                }
+                hotfix = determineHotfixVersion(
+                    project, VersionNumber(major, minor, patch, null), hotfixSize
+                )
             }
             else -> Unit
         }
-
-        if (hotfix >= hotfixSize) throw GradleException(
-            "Cannot release a new hotfix. Next hotfix '$hotfix' would leak into the next patch version."
-        )
 
         project.version = VersionNumber(major, minor, patch + hotfix, qualifier).toString()
     }
