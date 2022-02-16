@@ -24,7 +24,6 @@ internal fun determineHotfixVersion(
         it.publications.forEach { publication ->
             if (publication is MavenPublication) {
                 it.repositories.forEach { repository ->
-                    println(repository.name)
                     if (repository is MavenArtifactRepository) {
                         Util.listRevisions(
                             repository.url.toString(),
