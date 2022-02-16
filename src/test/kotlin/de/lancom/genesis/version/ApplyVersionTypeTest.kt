@@ -71,24 +71,6 @@ class ApplyVersionTypeTest {
     )
 
     @Test
-    fun `command line hotfix version type fails`() = execute(
-        commandlineParameters = listOf("-PversionType=hotfix"),
-        check = {
-            assertThat(success).isFalse
-            assertThat(build.output).contains("Version hotfix number 1 has more than 0 digits")
-        }
-    )
-
-    @Test
-    fun `config hotfix version type fails`() = execute(
-        configParameters = listOf("withType('hotfix')"),
-        check = {
-            assertThat(success).isFalse
-            assertThat(build.output).contains("Version hotfix number 1 has more than 0 digits")
-        }
-    )
-
-    @Test
     fun `command line build version type is applied correctly`() = execute(
         commandlineParameters = listOf("-PversionType=build"),
         setup = {
@@ -127,6 +109,7 @@ class ApplyVersionTypeTest {
         check: TestResult.() -> Unit = {},
     ) {
         testProject {
+            debug = true
             file("settings.gradle") {
                 fromTemplate("settings.gradle.ftl")
             }

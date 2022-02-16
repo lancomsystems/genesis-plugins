@@ -44,15 +44,6 @@ class ApplyVersionOverrideTypeTest {
     )
 
     @Test
-    fun `configured hotfix version type fails`() = execute(
-        type = "hotfix",
-        check = {
-            assertThat(success).isFalse
-            assertThat(build.output).contains("Version hotfix number 1 has more than 0 digits")
-        }
-    )
-
-    @Test
     fun `configured build version type is applied correctly`() = execute(
         type = "build",
         setup = {

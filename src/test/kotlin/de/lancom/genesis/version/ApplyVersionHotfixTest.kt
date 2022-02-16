@@ -87,6 +87,16 @@ class ApplyVersionHotfixTest {
         }
     )
 
+    @Test
+    fun `no more hotfixes fails`() = execute(
+        version = "1.2.200",
+        type = "hotfix",
+        check = {
+            assertThat(success).isFalse
+            assertThat(build.output).contains("Cannot release a new hotfix")
+        }
+    )
+
     private fun execute(
         type: String? = null,
         version: String? = null,
@@ -116,6 +126,7 @@ class ApplyVersionHotfixTest {
                             "1.2.100",
                             "1.2.200",
                             "1.2.201",
+                            "1.2.299",
                             "1.2.300",
                             "1.2.301",
                             "1.2.302",

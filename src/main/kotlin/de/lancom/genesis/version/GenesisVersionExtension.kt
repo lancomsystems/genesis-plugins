@@ -142,7 +142,7 @@ open class GenesisVersionExtension(
         }
 
         if (hotfix >= hotfixSize) throw GradleException(
-            "Version hotfix number $hotfix has more than $hotfixDigitsValue digits"
+            "Cannot release a new hotfix. Next hotfix '$hotfix' would leak into the next patch version."
         )
 
         project.version = VersionNumber(major, minor, patch + hotfix, qualifier).toString()
