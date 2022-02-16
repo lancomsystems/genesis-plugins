@@ -130,6 +130,43 @@ class CheckBranchVersionTest {
         }
     }
 
+    @Test
+    fun `check branch version with non existant base branch`() {
+        val missingBranchName = "notExistant"
+        testProject {
+            debug = true
+            branch("base")
+            file("settings.gradle") {
+                fromTemplate("settings.gradle.ftl")
+            }
+            file("build.gradle") {
+                fromTemplate(
+                    "build.gradle.withProperties.ftl", mapOf(
+                        "version" to "serviceVersion",
+                        "config" to listOf(
+                            "withBranch(\"$missingBranchName\")"
+                        )
+                    )
+                )
+            }
+
+            file("gradle.properties") {
+                fromTemplate(
+                    "gradle.properties.ftl", mapOf(
+                        "version" to "1.2.3-bar"
+                    )
+                )
+            }
+
+            commit()
+
+            execute("-q", "-PversionType=default", ":checkBranchVersion", "--stacktrace") {
+                assertThat(success).isFalse()
+                assertThat(this.build.output).contains(missingBranchName)
+            }
+        }
+    }
+
     private fun execute(
         baseBranchVersion: String,
         baseBranch: String = "base",

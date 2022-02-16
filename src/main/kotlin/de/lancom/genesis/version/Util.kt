@@ -94,7 +94,7 @@ object Util {
             return existingBranchHead
         }
 
-        git.remoteList().call().first {
+        git.remoteList().call().firstOrNull {
             try {
                 git.branchCreate().setName(branch)
                     .setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM)
@@ -105,7 +105,7 @@ object Util {
             } catch (e: RefNotFoundException) {
                 false
             }
-        }
+        } ?: throw RuntimeException("Cannot find branch '$branch' locally or on remote")
         return git.repository.findRef(branch)!!
     }
 
