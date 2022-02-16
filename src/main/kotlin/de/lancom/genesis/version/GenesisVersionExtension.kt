@@ -109,9 +109,6 @@ open class GenesisVersionExtension(
                 qualifier = "$userName-$sha"
             }
             VersionType.HOTFIX -> {
-                qualifier = null
-                hotfix = 1
-
                 project.extensions.findByType(PublishingExtension::class.java)?.also {
                     it.repositories.forEach { repository ->
                         if (repository is MavenArtifactRepository) {
@@ -127,7 +124,7 @@ open class GenesisVersionExtension(
                                         match = match && it.major == major
                                         match = match && it.minor == minor
                                         match = match && it.micro / hotfixSize == patch / hotfixSize
-                                        match = match && it.qualifier == qualifier
+                                        match = match && it.qualifier == null
 
                                         if (match) {
                                             hotfix = maxOf(it.micro % hotfixSize + 1, hotfix)

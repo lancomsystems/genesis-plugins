@@ -76,9 +76,21 @@ class ApplyVersionHotfixTest {
         }
     )
 
+    @Test
+    fun `valid version with hotfix and qualifier`() = execute(
+        version = "1.2.300",
+        type = "hotfix",
+        additionalArguments = arrayOf("-PversionQualifier=foo"),
+        check = {
+            assertThat(success).isTrue
+            assertThat(build.output).contains("1.2.304-foo")
+        }
+    )
+
     private fun execute(
         type: String? = null,
         version: String? = null,
+        additionalArguments: Array<String> = emptyArray(),
         check: TestResult.() -> Unit = {},
     ) {
         testProject {
@@ -108,6 +120,7 @@ class ApplyVersionHotfixTest {
                             "1.2.301",
                             "1.2.302",
                             "1.2.303",
+                            "1.2.304-pre1",
                             "1.2.400",
                             "1.2.500",
                             "1.2.a",
@@ -117,7 +130,7 @@ class ApplyVersionHotfixTest {
                 )
             }
 
-            execute("-q", ":printVersion") {
+            execute("-q", ":printVersion", *additionalArguments) {
                 check()
             }
         }
