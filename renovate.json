@@ -1,0 +1,10 @@
+{
+  "extends": [
+    ":dependencyDashboard",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":ignoreModulesAndTests",
+    ":autodetectPinVersions",
+    "workarounds:all",
+    "group:all"
+  ]
+}
