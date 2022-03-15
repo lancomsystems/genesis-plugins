@@ -76,7 +76,7 @@ inline fun testProject(block: TestSetup.() -> Unit) {
             override var debug: Boolean = false
 
             override val git by lazy {
-                Git.init().setDirectory(root).call().apply{
+                Git.init().setDirectory(root).call().apply {
                     add().addFilepattern(".").call()
                     commit().setMessage("test").setAll(true).call()
                 }

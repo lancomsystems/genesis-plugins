@@ -69,9 +69,11 @@ class ApplyVersionOverrideTypeTest {
                 fromTemplate("settings.gradle.ftl")
             }
             file("build.gradle") {
-                fromTemplate("build.gradle.ftl", mapOf(
-                    "version" to "1.2.3-foo"
-                ))
+                fromTemplate(
+                    "build.gradle.ftl", mapOf(
+                        "version" to "1.2.3-foo"
+                    )
+                )
             }
 
             val versionParameter = type?.let { "-PversionType=$it" }

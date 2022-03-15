@@ -15,9 +15,11 @@ class CheckPublishedVersionTest {
                 fromTemplate("settings.gradle.ftl")
             }
             file("build.gradle") {
-                fromTemplate("build.gradle.ftl", mapOf(
-                    "version" to "3.1.100"
-                ))
+                fromTemplate(
+                    "build.gradle.ftl", mapOf(
+                        "version" to "3.1.100"
+                    )
+                )
             }
             file("repository/org/example/test-project/maven-metadata.xml") {
                 fromTemplate(
@@ -44,9 +46,11 @@ class CheckPublishedVersionTest {
                 fromTemplate("settings.gradle.ftl")
             }
             file("build.gradle") {
-                fromTemplate("build.gradle.ftl", mapOf(
-                    "version" to "3.1.200"
-                ))
+                fromTemplate(
+                    "build.gradle.ftl", mapOf(
+                        "version" to "3.1.200"
+                    )
+                )
             }
             file("repository/org/example/test-project/maven-metadata.xml") {
                 fromTemplate(
@@ -73,9 +77,11 @@ class CheckPublishedVersionTest {
                 fromTemplate("settings.gradle.ftl")
             }
             file("build.gradle") {
-                fromTemplate("build.gradle.ftl", mapOf(
-                    "version" to "3.1.300"
-                ))
+                fromTemplate(
+                    "build.gradle.ftl", mapOf(
+                        "version" to "3.1.300"
+                    )
+                )
             }
             file("repository/org/example/test-project/maven-metadata.xml") {
                 fromTemplate(
