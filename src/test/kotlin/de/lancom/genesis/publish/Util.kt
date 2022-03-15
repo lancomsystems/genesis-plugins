@@ -4,7 +4,6 @@ import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.UnexpectedBuildFailure
 import java.io.File
-import java.lang.AssertionError
 
 /**
  * Provides an api for the creation of files in the test project.
