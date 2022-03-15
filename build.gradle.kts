@@ -5,7 +5,7 @@ group = "de.lancom.genesis"
 version = "0.1.2"
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("maven-publish")
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.20.0"
@@ -19,7 +19,7 @@ repositories {
 dependencies {
     implementation(gradleApi())
 
-    implementation("org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.1.0.202203080745-r")
     implementation("org.apache.ivy:ivy:2.5.0")
 
     testImplementation(gradleTestKit())
