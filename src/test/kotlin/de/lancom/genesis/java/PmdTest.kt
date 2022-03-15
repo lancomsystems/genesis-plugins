@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PmdTest {
 
     @Test
-    fun `check with default validation fails on invalid file` () {
+    fun `check with default validation fails on invalid file`() {
         testProject {
             file("settings.gradle") {
                 fromClasspath("settings.gradle.template")
@@ -29,7 +29,7 @@ class PmdTest {
     }
 
     @Test
-    fun `check with default validation succeeds on valid file` () {
+    fun `check with default validation succeeds on valid file`() {
         testProject {
             file("settings.gradle") {
                 fromClasspath("settings.gradle.template")
@@ -49,7 +49,7 @@ class PmdTest {
     }
 
     @Test
-    fun `check with custom validation succeeds on invalid file` () {
+    fun `check with custom validation succeeds on invalid file`() {
         testProject {
             file("settings.gradle") {
                 fromClasspath("settings.gradle.template")
