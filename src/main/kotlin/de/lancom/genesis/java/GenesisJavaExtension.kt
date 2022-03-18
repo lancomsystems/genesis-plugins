@@ -23,6 +23,25 @@ open class GenesisJavaExtension(
         if (project.findProperty("spotbugs.enabled") != "false") {
             withSpotBugs("4.2.0")
         }
+        disableChecksForGeneratedSources()
+    }
+
+    fun disableChecksForGeneratedSources() {
+        listOf(
+            "checkstyleGeneratedClientPublic",
+            "pmdGeneratedClientPublic",
+            "spotbugsGeneratedClientPublic",
+        ).mapNotNull(project.tasks::findByName).forEach { task ->
+            task.enabled = false
+        }
+
+        listOf(
+            "checkstyleGeneratedClientInternal",
+            "pmdGeneratedClientInternal",
+            "spotbugsGeneratedClientInternal",
+        ).mapNotNull(project.tasks::findByName).forEach { task ->
+            task.enabled = false
+        }
     }
 
     fun enableJava11() {

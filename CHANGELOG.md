@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.1.2] - 2022-03-18
 ### Changed
 - added enable functions with default values
+- disable checkstyle/pmd/spotbugs on generated code
 
 ## [1.1.1] - 2022-03-15
 ### Changed
