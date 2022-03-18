@@ -3,6 +3,7 @@ package de.lancom.genesis.java
 import com.github.spotbugs.snom.SpotBugsExtension
 import com.github.spotbugs.snom.SpotBugsPlugin
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.plugins.quality.*
@@ -11,6 +12,32 @@ open class GenesisJavaExtension(
     private val project: Project
 ) {
     private val javaExtension = project.extensions.getByType(JavaPluginExtension::class.java)
+
+    fun enableDefaults() {
+        if (project.findProperty("checkstyle.enabled") != "false") {
+            withCheckstyle()
+        }
+        if (project.findProperty("pmd.enabled") != "false") {
+            withPmd()
+        }
+        if (project.findProperty("spotbugs.enabled") != "false") {
+            withSpotBugs("4.2.0")
+        }
+    }
+
+    fun enableJava11() {
+        project.extensions.configure(JavaPluginExtension::class.java) {
+            it.apply {
+                sourceCompatibility = JavaVersion.VERSION_11
+            }
+        }
+    }
+
+    fun enableLibraryDefaults() {
+        // register additional artifacts
+        withJavadocJar()
+        withSourcesJar()
+    }
 
     @JvmOverloads
     fun withCheckstyle(
