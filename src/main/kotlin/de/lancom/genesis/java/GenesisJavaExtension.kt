@@ -3,10 +3,10 @@ package de.lancom.genesis.java
 import com.github.spotbugs.snom.SpotBugsExtension
 import com.github.spotbugs.snom.SpotBugsPlugin
 import com.github.spotbugs.snom.SpotBugsTask
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.plugins.quality.*
+import org.gradle.api.tasks.compile.JavaCompile
 
 open class GenesisJavaExtension(
     private val project: Project
@@ -45,9 +45,12 @@ open class GenesisJavaExtension(
     }
 
     fun enableJava11() {
-        project.extensions.configure(JavaPluginExtension::class.java) {
+        project.tasks.withType(JavaCompile::class.java) {
             it.apply {
-                sourceCompatibility = JavaVersion.VERSION_11
+                if (!name.startsWith("compileGeneratedClient")) {
+                    sourceCompatibility = "11"
+                    targetCompatibility = "11"
+                }
             }
         }
     }
