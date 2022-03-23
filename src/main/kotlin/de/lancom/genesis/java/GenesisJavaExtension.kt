@@ -74,9 +74,14 @@ open class GenesisJavaExtension(
         return project.buildscript.sourceFile!!.parentFile
     }
 
+    private fun findFile(name: String): File? {
+        return File(baseDirectory(), name).existsOrNull()
+            ?: File(baseDirectory().parentFile, name).existsOrNull()
+    }
+
     private fun findConfig(name: String): File? {
-        return File(baseDirectory().parentFile, "config/$name").existsOrNull()
-            ?: File(baseDirectory().parentFile, "config").listFiles { _, filename ->
+        return findFile("config/$name")
+            ?: findFile("config")?.listFiles { _, filename ->
                 project.name.startsWith(filename)
             }?.map { config ->
                 File(config, name)
@@ -108,8 +113,8 @@ open class GenesisJavaExtension(
         project.pluginManager.apply(PmdPlugin::class.java)
         project.extensions.configure(PmdExtension::class.java) {
             it.toolVersion = pmdVersion
-            it.ruleSets = emptyList()
             if (configFile != null) {
+                it.ruleSets = emptyList()
                 it.ruleSetFiles = project.files(configFile)
             }
         }
