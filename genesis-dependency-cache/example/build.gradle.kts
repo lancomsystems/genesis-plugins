@@ -1,5 +1,5 @@
 plugins {
-    id("de.lancom.genesis.dependency-cache") version "2.0.0"
+    id("de.lancom.genesis.dependency-cache") version "2.0.1"
     id("java")
 }
 
