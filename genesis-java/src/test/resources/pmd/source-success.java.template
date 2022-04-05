@@ -1,0 +1,21 @@
+package test;
+
+/**
+ * Main class.
+ */
+public class Main {
+
+    /**
+     * Main function.
+     */
+    public static void main() {
+        System.out.println("Hallo");
+    }
+
+    /**
+     * Test function.
+     */
+    public void test(Object... args) {
+        System.out.println("Hallo");
+    }
+}
