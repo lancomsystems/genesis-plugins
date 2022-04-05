@@ -1,21 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent.*
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-group = "de.lancom.genesis"
-version = "1.1.5"
-
-plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
-    id("maven-publish")
-    id("java-gradle-plugin")
-    id("com.gradle.plugin-publish") version "0.21.0"
-}
-
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 dependencies {
     implementation(gradleApi())
     implementation("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5")
@@ -38,20 +20,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    website = "https://github.com/lancomsystems/genesis-java"
-    vcsUrl = "https://github.com/lancomsystems/genesis-java.git"
     tags = listOf("java")
-}
-
-
-
-tasks.withType(Test::class.java) {
-    useJUnitPlatform()
-    testLogging {
-        events = setOf(PASSED, FAILED)
-    }
-}
-
-tasks.withType(KotlinCompile::class.java).all {
-    kotlinOptions.jvmTarget = "1.8"
 }

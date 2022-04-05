@@ -1,22 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-group = "de.lancom.genesis"
-version = "0.1.2"
-
-plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
-    id("maven-publish")
-    id("java-gradle-plugin")
-    id("com.gradle.plugin-publish") version "0.21.0"
-}
-
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 dependencies {
     implementation(gradleApi())
 
@@ -39,22 +20,5 @@ gradlePlugin {
 }
 
 pluginBundle {
-    website = "https://github.com/lancomsystems/genesis-dependency-cache"
-    vcsUrl = "https://github.com/lancomsystems/genesis-dependency-cache.git"
     tags = listOf("cache", "dependency", "dependencies")
-}
-
-tasks.withType(Test::class.java) {
-    useJUnitPlatform()
-    testLogging {
-        events = setOf(PASSED, FAILED)
-    }
-}
-
-tasks.withType(KotlinCompile::class.java).all {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
 }
