@@ -1,16 +1,16 @@
 dependencies {
     implementation(gradleApi())
 
-    implementation("org.eclipse.jgit:org.eclipse.jgit:6.1.0.202203080745-r")
-    implementation("org.apache.ivy:ivy:2.5.0")
+    implementation(libs.orgEclipseJgit.orgEclipseJgit)
+    implementation(libs.orgApacheIvy.ivy)
 
     testImplementation(gradleTestKit())
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
-    testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("org.freemarker:freemarker:2.3.31")
+    testImplementation(libs.orgJunitJupiter.junitJupiterApi)
+    testImplementation(libs.orgJunitJupiter.junitJupiterParams)
+    testImplementation(libs.orgAssertj.assertjCore)
+    testImplementation(libs.orgFreemarker.freemarker)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testRuntimeOnly(libs.orgJunitJupiter.junitJupiterEngine)
 }
 
 gradlePlugin {

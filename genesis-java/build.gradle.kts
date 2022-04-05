@@ -1,11 +1,11 @@
 dependencies {
     implementation(gradleApi())
-    implementation("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.5")
+    implementation(libs.gradlePluginComGithubSpotbugsSnom.spotbugsGradlePlugin)
 
     testImplementation(gradleTestKit())
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation(libs.orgJunitJupiter.junitJupiterApi)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testRuntimeOnly(libs.orgJunitJupiter.junitJupiterEngine)
 }
 
 gradlePlugin {

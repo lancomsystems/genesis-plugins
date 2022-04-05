@@ -2,10 +2,10 @@ dependencies {
     implementation(gradleApi())
 
     testImplementation(gradleTestKit())
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.mock-server:mockserver-junit-jupiter:5.13.0")
+    testImplementation(libs.orgJunitJupiter.junitJupiterApi)
+    testImplementation(libs.orgMockServer.mockserverJunitJupiter)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testRuntimeOnly(libs.orgJunitJupiter.junitJupiterEngine)
 }
 
 gradlePlugin {

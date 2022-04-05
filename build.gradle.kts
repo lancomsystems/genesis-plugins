@@ -5,10 +5,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "de.lancom.genesis"
 version = "2.0.0"
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.20"
+    alias(libs.plugins.orgJetbrainsKotlinJvm)
     id("java-gradle-plugin")
-    id("com.gradle.plugin-publish") version "0.21.0"
+    alias(libs.plugins.comGradlePluginPublish)
 }
 
 subprojects {
