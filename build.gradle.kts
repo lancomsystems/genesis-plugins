@@ -12,6 +12,8 @@ plugins {
     alias(libs.plugins.comGradlePluginPublish)
 }
 
+tasks.getByName("publishPlugins").enabled = false
+
 subprojects {
     group = rootProject.group
     version = rootProject.version
