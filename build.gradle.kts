@@ -31,12 +31,12 @@ subprojects {
     }
 
     tasks.withType(KotlinCompile::class.java).all {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = "11"
     }
 
     tasks.withType(JavaCompile::class.java).all {
-        targetCompatibility = "1.8"
-        sourceCompatibility = "1.8"
+        targetCompatibility = "11"
+        sourceCompatibility = "11"
     }
 
     rootProject.tasks.getByName("publishPlugins").dependsOn(tasks.getByName("publishPlugins"))
