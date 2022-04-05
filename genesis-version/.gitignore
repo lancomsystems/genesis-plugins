@@ -1,0 +1,10 @@
+/out/
+build/
+/classes/
+.gradle/
+/.idea/*
+.DS_Store
+*.iml
+!/.idea/codeStyles
+!/.idea/runConfigurations
+!/.idea/inspectionProfiles
