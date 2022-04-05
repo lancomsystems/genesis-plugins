@@ -2,8 +2,6 @@
 
 Basic configuration of Kotlin based Gradle projects. 
 
-[Changelog](CHANGELOG.md)
-
 ## Activation
 ```kotlin 
 plugins {
@@ -59,10 +57,3 @@ Execute `./gradlew -p example <tasks>` to run tasks of the [example project](./e
 - [Dokka Plugin](https://github.com/Kotlin/dokka)
 - [Detekt Plugin](https://detekt.github.io/detekt/)
 - [Ktlint Plugin](https://github.com/JLLeitschuh/ktlint-gradle)
-
-
-## Maintainers
-- [Artur Taube](https://github.com/Adduh)
-- [Dennis Rieks](https://github.com/drieks)
-- [Jonas von Andrian](https://github.com/johnny)
-- [Maya Naydenova](https://github.com/mnaydeno)

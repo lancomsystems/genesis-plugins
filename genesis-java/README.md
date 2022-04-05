@@ -2,8 +2,6 @@
 
 Basic configuration for Java based Gradle projects. 
 
-[Changelog](CHANGELOG.md)
-
 ## Activation
 ```kotlin 
 plugins {
@@ -56,9 +54,3 @@ Execute `./gradlew -p example <tasks>` to run tasks of the [example project](./e
 - [SpotBugs Plugin](https://github.com/spotbugs/spotbugs-gradle-plugin)
 - [Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
 - [Pmd Plugin](https://docs.gradle.org/current/userguide/pmd_plugin.html)
-
-## Maintainers
-- [Artur Taube](https://github.com/Adduh)
-- [Frederic Kneier](https://github.com/frederic-kneier)
-- [Jonas von Andrian](https://github.com/johnny)
-- [Maya Naydenova](https://github.com/mnaydeno)

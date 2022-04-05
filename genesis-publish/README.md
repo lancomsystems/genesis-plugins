@@ -2,8 +2,6 @@
 
 Basic publication for Gradle projects. 
 
-[Changelog](CHANGELOG.md)
-
 ## Activation
 ```kotlin 
 plugins {
@@ -40,8 +38,3 @@ Execute `./gradlew -p example <tasks>` to run tasks of the [example project](./e
 ## Plugins
 
 - [Maven Publish](https://docs.gradle.org/current/userguide/publishing_maven.html)
-
-## Maintainers
-- [Artur Taube](https://github.com/Adduh)
-- [Jonas von Andrian](https://github.com/johnny)
-- [Maya Naydenova](https://github.com/mnaydeno)

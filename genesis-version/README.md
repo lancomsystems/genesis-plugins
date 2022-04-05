@@ -2,8 +2,6 @@
 
 Version handling for Gradle projects. 
 
-[Changelog](CHANGELOG.md)
-
 ## Activation
 ```kotlin 
 plugins {
@@ -58,8 +56,3 @@ Checks that the project version is newer that the one latest one published in th
 An example project can be found in the `examples/project`.
 
 Execute `./gradlew -p example <tasks>` to run tasks of the [example project](./example).
-
-## Maintainers
-- [Artur Taube](https://github.com/Adduh)
-- [Jonas von Andrian](https://github.com/johnny)
-- [Maya Naydenova](https://github.com/mnaydeno)
