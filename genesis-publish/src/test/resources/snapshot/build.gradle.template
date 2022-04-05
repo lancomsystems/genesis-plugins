@@ -1,0 +1,18 @@
+plugins {
+    id("de.lancom.genesis.publish")
+    id("java")
+}
+
+group = "test"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+genesisPublish {
+    withReleaseUrl("http://localhost:8888/release")
+    withSnapshotUrl("http://localhost:8888/snapshot")
+    withInsecure(true)
+    withComponent("java")
+}
