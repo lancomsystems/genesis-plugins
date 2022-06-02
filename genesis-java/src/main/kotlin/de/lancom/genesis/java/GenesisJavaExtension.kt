@@ -36,20 +36,22 @@ open class GenesisJavaExtension(
     }
 
     fun disableChecksForGeneratedSources() {
-        listOf(
-            "checkstyleGeneratedClientPublic",
-            "pmdGeneratedClientPublic",
-            "spotbugsGeneratedClientPublic",
-        ).mapNotNull(project.tasks::findByName).forEach { task ->
-            task.enabled = false
-        }
-
-        listOf(
-            "checkstyleGeneratedClientInternal",
-            "pmdGeneratedClientInternal",
-            "spotbugsGeneratedClientInternal",
-        ).mapNotNull(project.tasks::findByName).forEach { task ->
-            task.enabled = false
+        project.afterEvaluate {
+            project.afterEvaluate {
+                project.afterEvaluate {
+                    listOf(
+                        "checkstyle",
+                        "pmd",
+                        "spotbugs",
+                    ).flatMap { tool ->
+                        project.tasks.matching { task ->
+                            task.name.startsWith("${tool}GeneratedClient")
+                        }
+                    }.forEach { task ->
+                        task.enabled = false
+                    }
+                }
+            }
         }
     }
 
