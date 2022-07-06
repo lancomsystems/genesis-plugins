@@ -1,4 +1,4 @@
-rootProject.name = "genesis-dependency-cache"
+rootProject.name = "genesis-github"
 
 include(":genesis-dependency-cache")
 include(":genesis-java")
