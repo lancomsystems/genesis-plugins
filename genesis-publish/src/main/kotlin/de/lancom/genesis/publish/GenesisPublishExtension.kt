@@ -52,7 +52,7 @@ open class GenesisPublishExtension(
                 }
                 if (component != null && !project.plugins.hasPlugin("java-gradle-plugin")) {
                     it.publications {
-                        it.create("main", MavenPublication::class.java) {
+                        it.register("main", MavenPublication::class.java) {
                             it.from(project.components.getByName(component))
                         }
                     }

@@ -30,7 +30,7 @@ class PublishTest {
                 assertThat(success, equalTo(false))
                 assertThat(
                     this.build.output, containsString(
-                        "SoftwareComponentInternal with name 'invalid' not found."
+                        "Could not create domain object 'main' (MavenPublication)"
                     )
                 )
             }

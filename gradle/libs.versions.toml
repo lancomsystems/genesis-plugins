@@ -1,16 +1,16 @@
 [versions]
 assertj = "3.23.1"
-comGradlePluginPublish = "0.21.0"
-detektGradlePlugin = "1.20.0"
+comGradlePluginPublish = "1.0.0"
+detektGradlePlugin = "1.21.0"
 dokkaGradlePlugin = "1.6.21"
 freemarker = "2.3.31"
 ivy = "2.5.0"
-jgit = "6.1.0.202203080745-r"
+jgit = "6.3.0.202209071007-r"
 kotlinVersion = "1.6.21"
-ktlintGradle = "10.3.0"
-mockserverJunitJupiter = "5.13.2"
-orgJunitJupiter = "5.8.2"
-sportbugsGradlePlugin = "4.7.5"
+ktlintGradle = "11.0.0"
+mockserverJunitJupiter = "5.14.0"
+orgJunitJupiter = "5.9.1"
+sportbugsGradlePlugin = "5.0.12"
 
 [plugins.comGradlePluginPublish]
 id = "com.gradle.plugin-publish"
@@ -85,5 +85,5 @@ module = "org.junit.jupiter:junit-jupiter-params"
 version.ref = "orgJunitJupiter"
 
 [libraries.gradlePluginComGithubSpotbugsSnom-spotbugsGradlePlugin]
-module = "gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin"
+module = "com.github.spotbugs.snom:spotbugs-gradle-plugin"
 version.ref = "sportbugsGradlePlugin"

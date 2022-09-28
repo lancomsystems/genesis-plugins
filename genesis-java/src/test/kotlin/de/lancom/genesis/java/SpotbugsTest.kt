@@ -23,7 +23,7 @@ class SpotbugsTest {
             execute(":spotbugsMain") {
                 assertThat(success, equalTo(false))
                 assertThat(build.task(":spotbugsMain")?.outcome, equalTo(TaskOutcome.FAILED))
-                assertThat(build.output, CoreMatchers.containsString("2 SpotBugs violations were found"))
+                assertThat(build.output, CoreMatchers.containsString("SpotBugs ended with exit code 1"))
             }
         }
     }
