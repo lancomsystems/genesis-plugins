@@ -1,15 +1,15 @@
 [versions]
-assertj = "3.23.1"
+assertj = "3.24.1"
 comGradlePluginPublish = "1.1.0"
 detektGradlePlugin = "1.22.0"
 dokkaGradlePlugin = "1.7.20"
 freemarker = "2.3.31"
 ivy = "2.5.1"
 jgit = "6.4.0.202211300538-r"
-kotlinVersion = "1.7.22"
+kotlinVersion = "1.8.0"
 ktlintGradle = "11.0.0"
-mockserverJunitJupiter = "5.14.0"
-orgJunitJupiter = "5.9.1"
+mockserverJunitJupiter = "5.15.0"
+orgJunitJupiter = "5.9.2"
 sportbugsGradlePlugin = "5.0.13"
 
 [plugins.comGradlePluginPublish]
