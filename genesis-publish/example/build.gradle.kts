@@ -1,5 +1,5 @@
 plugins {
-    id("de.lancom.genesis.publish") version "2.0.7"
+    id("de.lancom.genesis.publish") version "2.0.8"
     id("java")
 }
 
