@@ -28,7 +28,7 @@ open class KotlinExtension(
 ) {
     private val javaExtension = project.extensions.getByType(JavaPluginExtension::class.java)
 
-    val jvmVersion = project.objects.property(JavaVersion::class.java).convention(JavaVersion.VERSION_1_8)
+    val jvmVersion = project.objects.property(JavaVersion::class.java).convention(JavaVersion.VERSION_11)
 
     val freeCompilerArgs: ListProperty<String> = project.objects.listProperty(String::class.java)
         .convention(listOf("-Xjsr305=strict", "-Xjvm-default=all"))
