@@ -41,8 +41,8 @@ subprojects {
 
     rootProject.tasks.getByName("publishPlugins").dependsOn(tasks.getByName("publishPlugins"))
 
-    pluginBundle {
-        website = "https://github.com/lancomsystems/genesis-plugins"
-        vcsUrl = "https://github.com/lancomsystems/genesis-plugins.git"
+    gradlePlugin {
+        website.set("https://github.com/lancomsystems/genesis-plugins")
+        vcsUrl.set("https://github.com/lancomsystems/genesis-plugins.git")
     }
 }
