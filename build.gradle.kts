@@ -41,6 +41,7 @@ subprojects {
 
     rootProject.tasks.getByName("publishPlugins").dependsOn(tasks.getByName("publishPlugins"))
 
+    @Suppress("UnstableApiUsage")
     gradlePlugin {
         website.set("https://github.com/lancomsystems/genesis-plugins")
         vcsUrl.set("https://github.com/lancomsystems/genesis-plugins.git")

@@ -15,6 +15,7 @@ gradlePlugin {
             displayName = "Lancom Genesis Java Plugin"
             description = "Plugin for basic configuration of Java based Gradle projects"
             implementationClass = "de.lancom.genesis.java.GenesisJavaPlugin"
+            @Suppress("UnstableApiUsage")
             tags.set(listOf("java"))
         }
     }

@@ -20,6 +20,7 @@ gradlePlugin {
             displayName = "LANCOM Genesis Version Plugin"
             description = "Basic version handling for Gradle projects"
             implementationClass = "de.lancom.genesis.version.GenesisVersionPlugin"
+            @Suppress("UnstableApiUsage")
             tags.set(listOf("java"))
         }
     }
