@@ -15,6 +15,7 @@ gradlePlugin {
             displayName = "Lancom Genesis Publish Plugin"
             description = "Plugin for publishing to maven repository"
             implementationClass = "de.lancom.genesis.publish.GenesisPublishPlugin"
+            @Suppress("UnstableApiUsage")
             tags.set(listOf("maven", "publish"))
         }
     }

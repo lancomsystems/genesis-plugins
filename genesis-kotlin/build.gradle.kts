@@ -22,6 +22,7 @@ gradlePlugin {
             displayName = "Lancom Genesis Kotlin Plugin"
             description = "Plugin for basic configuration of Kotlin based Gradle projects"
             implementationClass = "de.lancom.genesis.kotlin.KotlinPlugin"
+            @Suppress("UnstableApiUsage")
             tags.set(listOf("kotlin"))
         }
     }
