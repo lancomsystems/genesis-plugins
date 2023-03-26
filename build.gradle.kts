@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.lancom.genesis"
-version = "2.0.9"
+version = "2.0.10"
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -41,8 +41,8 @@ subprojects {
 
     rootProject.tasks.getByName("publishPlugins").dependsOn(tasks.getByName("publishPlugins"))
 
-    pluginBundle {
-        website = "https://github.com/lancomsystems/genesis-plugins"
-        vcsUrl = "https://github.com/lancomsystems/genesis-plugins.git"
+    gradlePlugin {
+        website.set("https://github.com/lancomsystems/genesis-plugins")
+        vcsUrl.set("https://github.com/lancomsystems/genesis-plugins.git")
     }
 }

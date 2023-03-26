@@ -20,10 +20,7 @@ gradlePlugin {
             displayName = "LANCOM Genesis Version Plugin"
             description = "Basic version handling for Gradle projects"
             implementationClass = "de.lancom.genesis.version.GenesisVersionPlugin"
+            tags.set(listOf("java"))
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("java")
 }

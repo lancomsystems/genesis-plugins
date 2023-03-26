@@ -15,10 +15,7 @@ gradlePlugin {
             displayName = "Lancom Genesis Dependency Cache Plugin"
             description = "Caches all dependencies so they can be used by a read only cache."
             implementationClass = "de.lancom.genesis.dependency.cache.GenesisDependencyCachePlugin"
+            tags.set(listOf("cache", "dependency", "dependencies"))
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("cache", "dependency", "dependencies")
 }

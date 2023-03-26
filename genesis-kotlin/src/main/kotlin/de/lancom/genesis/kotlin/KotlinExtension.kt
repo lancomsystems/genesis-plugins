@@ -85,7 +85,7 @@ open class KotlinExtension(
 
     @JvmOverloads
     fun withDetekt(
-        detektVersion: String = "1.18.1",
+        detektVersion: String = "1.22.0",
     ) {
         project.plugins.apply(DetektPlugin::class.java)
 

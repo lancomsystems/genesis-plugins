@@ -35,7 +35,7 @@ class DetektTest {
             file("build.gradle") {
                 fromClasspath("detekt/build.gradle.template")
             }
-            file("src/main/kotlin/Main.kt") {
+            file("src/main/kotlin/test/Main.kt") {
                 fromClasspath("detekt/source-fail.kt.template")
             }
 
@@ -57,7 +57,7 @@ class DetektTest {
             file("build.gradle") {
                 fromClasspath("detekt/build.gradle.template")
             }
-            file("src/main/kotlin/Main.kt") {
+            file("src/main/kotlin/test/Main.kt") {
                 fromClasspath("detekt/source-success.kt.template")
             }
 
@@ -77,7 +77,7 @@ class DetektTest {
             file("build.gradle") {
                 fromClasspath("detekt/build.gradle.template")
             }
-            file("src/main/kotlin/Main.kt") {
+            file("src/main/kotlin/test/Main.kt") {
                 fromClasspath("detekt/source-fail.kt.template")
             }
             file("config/detekt/detekt.yml") {

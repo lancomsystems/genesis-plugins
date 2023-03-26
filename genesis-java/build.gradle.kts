@@ -15,10 +15,7 @@ gradlePlugin {
             displayName = "Lancom Genesis Java Plugin"
             description = "Plugin for basic configuration of Java based Gradle projects"
             implementationClass = "de.lancom.genesis.java.GenesisJavaPlugin"
+            tags.set(listOf("java"))
         }
     }
-}
-
-pluginBundle {
-    tags = listOf("java")
 }
