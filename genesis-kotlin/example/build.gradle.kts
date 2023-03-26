@@ -1,5 +1,5 @@
 plugins {
-    id("de.lancom.genesis.kotlin") version "2.0.10"
+    id("de.lancom.genesis.kotlin") version "2.0.11"
 }
 
 group = "org.example"
