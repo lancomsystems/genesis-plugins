@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.lancom.genesis"
-version = "2.0.11"
+version = "2.0.12"
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
