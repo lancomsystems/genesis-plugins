@@ -1,6 +1,6 @@
 [versions]
 assertj = "3.24.2"
-comGradlePluginPublish = "1.1.0"
+comGradlePluginPublish = "1.2.0"
 detektGradlePlugin = "1.22.0"
 dokkaGradlePlugin = "1.8.10"
 freemarker = "2.3.32"
