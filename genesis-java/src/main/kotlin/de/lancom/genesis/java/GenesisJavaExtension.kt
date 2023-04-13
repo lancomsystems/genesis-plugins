@@ -3,10 +3,17 @@ package de.lancom.genesis.java
 import com.github.spotbugs.snom.SpotBugsExtension
 import com.github.spotbugs.snom.SpotBugsPlugin
 import com.github.spotbugs.snom.SpotBugsTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.plugins.quality.*
+import org.gradle.api.plugins.quality.Checkstyle
+import org.gradle.api.plugins.quality.CheckstyleExtension
+import org.gradle.api.plugins.quality.CheckstylePlugin
+import org.gradle.api.plugins.quality.Pmd
+import org.gradle.api.plugins.quality.PmdExtension
+import org.gradle.api.plugins.quality.PmdPlugin
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import java.io.File
 
 private fun File.existsOrNull(): File? {
@@ -55,12 +62,41 @@ open class GenesisJavaExtension(
         }
     }
 
+    fun autoDetectJavaVersion() {
+        when (GenesisJavaVersion.projectJavaVersion(project)) {
+            GenesisJavaVersion.Java11 ->
+                enableJava11()
+
+            GenesisJavaVersion.Java17 ->
+                enableJava17()
+        }
+    }
+
     fun enableJava11() {
+        println("using java11")
+        javaExtension.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+        project.objects.property(JavaVersion::class.java).set(JavaVersion.VERSION_11)
+
         project.tasks.withType(JavaCompile::class.java) {
             it.apply {
                 if (!name.startsWith("compileGeneratedClient")) {
                     sourceCompatibility = "11"
                     targetCompatibility = "11"
+                }
+            }
+        }
+    }
+
+    fun enableJava17() {
+        println("using java17")
+        javaExtension.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+        project.objects.property(JavaVersion::class.java).set(JavaVersion.VERSION_17)
+
+        project.tasks.withType(JavaCompile::class.java) {
+            it.apply {
+                if (!name.startsWith("compileGeneratedClient")) {
+                    sourceCompatibility = "17"
+                    targetCompatibility = "17"
                 }
             }
         }

@@ -12,6 +12,7 @@ private val javaPlugins = setOf(
 
 class GenesisJavaPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        println("genesis java plugin")
         if (!javaPlugins.any(project.pluginManager::hasPlugin)) {
             project.pluginManager.apply(JavaPlugin::class.java)
         }
